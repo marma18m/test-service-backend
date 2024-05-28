@@ -1,0 +1,5 @@
+fastapi
+fastapi-users 
+pre
+sqlmodel 
+sqlite
