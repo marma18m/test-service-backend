@@ -2,50 +2,46 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
 	"name": "hybrid-cloud-service-backend",
-    "build": {
-        "context": "..",
+	"build": {
+		"context": "..",
 		"dockerfile": "Dockerfile"
 	},
-    "workspaceFolder": "/app",
-    "workspaceMount": "source=${localWorkspaceFolder}/feature-pipeline,target=/app,type=bind,consistency=delegated",
+	"workspaceFolder": "/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=delegated",
 	"mounts": [
 		"source=${localEnv:USERPROFILE}${localEnv:HOME}/.gitconfig,target=/etc/gitconfig,type=bind,consistency=delegated"
 	],
-
-
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
-            "settings": {
-                "editor.formatOnSave": true,
-                "[python]": {
-                    "editor.defaultFormatter": "ms-python.flake8",
-                    "editor.formatOnSave": true,
-                    "editor.codeActionsOnSave": {
-                        "source.organizeImports": true
-                        }
-                    }
-                },
-		  "extensions": [
-            "ms-python.python",
-			"ms-python.flake8",
-			"ms-python.vscode-pylance",
-			"ms-python.isort",
-			"ms-python.black-formatter",
-			"eamodio.gitlens",
-			"ms-toolsai.jupyter",
-			"ms-toolsai.jupyter-renderers",
-			"tamasfe.even-better-toml",
-			"usernamehw.errorlens",
-			"wayou.vscode-todo-highlight",
-			"mikestead.dotenv"
+			"settings": {
+				"editor.formatOnSave": true,
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.flake8",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": true
+					}
+				}
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.flake8",
+				"ms-python.vscode-pylance",
+				"ms-python.isort",
+				"ms-python.black-formatter",
+				"eamodio.gitlens",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers",
+				"tamasfe.even-better-toml",
+				"usernamehw.errorlens",
+				"wayou.vscode-todo-highlight",
+				"mikestead.dotenv"
 			]
-        }
+		}
 	},
-	
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [9000],
-
 	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
 	// More info: https://containers.dev/implementors/json_reference/#port-attributes
 	"portsAttributes": {
@@ -54,10 +50,8 @@
 			"onAutoForward": "notify"
 		}
 	},
-
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "poetry config virtualenvs.create false && poetry install"
-
+	"postCreateCommand": "poetry config virtualenvs.create false && poetry install",
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"remoteUser": "root"
 }
