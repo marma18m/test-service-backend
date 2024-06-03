@@ -1,25 +1,15 @@
-from fastapi_users.db import SQLModelBaseUser
-from fastapi_users import models
-from sqlmodel import Field
-from typing import Optional
+import uuid
+
+from fastapi_users import schemas
 
 
-class User(SQLModelBaseUser, table=True):
-    first_name: str = Field(nullable=False)
-    last_name: str = Field(nullable=False)
+class UserRead(schemas.BaseUser[uuid.UUID]):
+    pass
 
 
-class UserCreate(models.CreateUpdateDictModel):
-    first_name: str
-    last_name: str
-    email: str
-    password: str
+class UserCreate(schemas.BaseUserCreate):
+    pass
 
 
-class UserUpdate(models.CreateUpdateDictModel):
-    first_name: Optional[str] = None
-    last_name: Optional[str] = None
-
-
-class UserDB(User, models.BaseUserDB):
+class UserUpdate(schemas.BaseUserUpdate):
     pass

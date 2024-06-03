@@ -14,16 +14,6 @@
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
-			"settings": {
-				"editor.formatOnSave": true,
-				"[python]": {
-					"editor.defaultFormatter": "ms-python.flake8",
-					"editor.formatOnSave": true,
-					"editor.codeActionsOnSave": {
-						"source.organizeImports": true
-					}
-				}
-			},
 			"extensions": [
 				"ms-python.python",
 				"ms-python.flake8",
@@ -37,21 +27,43 @@
 				"usernamehw.errorlens",
 				"wayou.vscode-todo-highlight",
 				"mikestead.dotenv"
-			]
-		}
-	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [9000],
-	// Use 'portsAttributes' to set default properties for specific forwarded ports. 
-	// More info: https://containers.dev/implementors/json_reference/#port-attributes
-	"portsAttributes": {
-		"9000": {
-			"label": "service-backend",
-			"onAutoForward": "notify"
-		}
-	},
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "poetry config virtualenvs.create false && poetry install",
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "root"
+			],
+			"settings": {
+				"editor.rulers": [
+					79
+				],
+				"files.trimFinalNewlines": true,
+				"files.trimTrailingWhitespace": true,
+				"files.insertFinalNewline": true,
+				"isort.args": [
+					"--settings-path=/app/pyproject.toml"
+				],
+				"python.formatting.blackArgs": [
+					"--config=/app/pyproject.toml"
+				],
+				"editor.formatOnSave": true,
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.flake8",
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": true
+					}
+				}
+			}
+		},
+		// Use 'forwardPorts' to make a list of ports inside the container available locally.
+		// "forwardPorts": [9000],
+		// Use 'portsAttributes' to set default properties for specific forwarded ports. 
+		// More info: https://containers.dev/implementors/json_reference/#port-attributes
+		"portsAttributes": {
+			"9000": {
+				"label": "service-backend",
+				"onAutoForward": "notify"
+			}
+		},
+		// Use 'postCreateCommand' to run commands after the container is created.
+		"postCreateCommand": "poetry config virtualenvs.create false && poetry install",
+		// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+		"remoteUser": "root"
+	}
 }

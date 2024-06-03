@@ -1,10 +1,41 @@
-from sqlmodel import SQLModel, create_engine
+from typing import AsyncGenerator
+
+from fastapi import Depends
+from fastapi_users.db import (
+    SQLAlchemyBaseUserTableUUID,
+    SQLAlchemyUserDatabase,
+)
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
+from sqlalchemy.orm import DeclarativeBase
+
+DATABASE_URL = "sqlite+aiosqlite:///./test.db"
 
 
-class DatabaseService:
-    def __init__(self, sqlite_file_name="database.db"):
-        self.sqlite_url = f"sqlite:///{sqlite_file_name}"
-        self.engine = create_engine(self.sqlite_url)
+class Base(DeclarativeBase):
+    pass
 
-    def create_db_and_tables(self):
-        SQLModel.metadata.create_all(self.engine)
+
+class User(SQLAlchemyBaseUserTableUUID, Base):
+    pass
+
+
+engine = create_async_engine(DATABASE_URL)
+async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
+
+
+async def create_db_and_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
+    async with async_session_maker() as session:
+        yield session
+
+
+async def get_user_db(session: AsyncSession = Depends(get_async_session)):
+    yield SQLAlchemyUserDatabase(session, User)
