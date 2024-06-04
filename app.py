@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import Depends, FastAPI
 
+from routers import initial_load
 from services.database_service import User, create_db_and_tables
 from schemas.user import UserCreate, UserRead, UserUpdate
 from services.user_auth import auth_backend, current_active_user, fastapi_users
@@ -40,6 +41,10 @@ app.include_router(
     fastapi_users.get_users_router(UserRead, UserUpdate),
     prefix="/users",
     tags=["users"],
+)
+
+app.include_router(
+    initial_load.router,
 )
 
 

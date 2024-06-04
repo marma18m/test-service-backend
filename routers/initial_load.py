@@ -1,6 +1,7 @@
-from fastapi import APIRouter, HTTPException
 import yaml
+from fastapi import APIRouter, HTTPException
 from starlette import status
+
 from schemas.errors import BAD_REQUEST
 
 router = APIRouter(
@@ -41,8 +42,7 @@ async def load_initial_data():
     devices = config["VisionSystem"]["device"]
     cameras = []
     for device in devices:
-        if "camera" in device:
-            cam = {"name": device["name"], "enable": device["enable"]}
-            cameras.append(cam)
+        cam = {"name": device["name"], "enable": device["enable"]}
+        cameras.append(cam)
 
     return {"type": config["VisionSystem"]["type"], "cameras": cameras}

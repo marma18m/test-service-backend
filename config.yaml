@@ -1,0 +1,27 @@
+VisionSystem:
+  type: USB3  # USB/ Gige | There can only be one type of cameras
+  device:
+    - name: CAM1
+      enable: True
+      config:
+        ip: 192.168.1.1
+        serial: K59283038
+        TriggerSignalFilter: 300
+        MaxImageBufferSize: 20
+        parameters:
+          exposure_settings:
+            - ExposureAuto: "Off"
+          encoder_settings:
+            - TriggerSelector: "FrameStart"
+            - TriggerMode: "Off"
+            - TriggerSource: "Line0"
+        # Add other parameters here for CAM1
+    - name: CAM2
+      enable: True
+      config:
+        ip: 192.168.1.2
+        parameters:
+          exposure_settings:
+            - ExposureAuto: "On"
+        # Add other parameters here for CAM2
+    # Add more cameras as needed
